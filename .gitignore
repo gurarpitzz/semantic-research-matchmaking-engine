@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Data
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary / Debug / Logs
+*.log
+*.png
+*.jpg
+*.html
+*.tmp
+debug_*.py
+cleanup_project.py
+iiser_moholi.html
+iiser_moholi_v2.html
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
