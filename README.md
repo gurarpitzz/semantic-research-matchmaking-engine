@@ -193,5 +193,3 @@ GET /export/professors.xlsx
 ## 📜 License
 
 MIT License
-
-This README now looks like a **research tool**, **engineering system**, and **production platform** — not a student project.
