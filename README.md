@@ -18,10 +18,10 @@ It is engineered to handle **real-world university websites** that use:
 | ------------------------------ | ----------------------------- | --------------------------------------- |
 | Multi-page faculty directories | Manual scraper per university | Autonomous traversal heuristics         |
 | Drupal / CSRF blocking         | Site-specific hacks           | Generic CSRF + session injection engine |
-| JS rendered directories        | Impossible with requests      | Headless Chromium fallback (Playwright) |
+| JS rendered directories        | Impossible with `requests`    | Headless Chromium fallback (Playwright) |
 | Emails hidden in profiles      | Missed data                   | Deep profile scraping + de-obfuscation  |
 | Finding collaborators          | Manual Google search          | Semantic embedding match engine         |
-| Data export for outreach       | Manual copy                   | One-click Excel export                  |
+| Data export for outreach       | Manual copy/paste             | One-click Excel export                  |
 
 ---
 
@@ -75,7 +75,7 @@ When standard HTTP scraping fails, SRME automatically:
 | Universal A-Z traversal   | Detects alphabetical index automatically | ETH Zurich       |
 | Pagination traversal      | Detects numeric/next pagination          | Toronto          |
 | Drupal AJAX + CSRF bypass | Injects form state into AJAX POST        | Oxford, Imperial |
-| Session persistence       | requests.Session maintains cookies       | Cambridge        |
+| Session persistence       | `requests.Session` maintains cookies     | Cambridge        |
 | JS rendering fallback     | Playwright browser automation            | Oxford Physics   |
 | Email de-obfuscation      | Handles `[at]`, `(dot)` patterns         | Multiple sites   |
 | Concurrent ingestion      | 5 workers, atomic DB updates             | Stress tested    |
@@ -118,7 +118,7 @@ Faculty Directory URL
 | `backend/core/scraper.py`  | Universal directory crawler (A-Z, AJAX, CSRF, JS) |
 | `backend/workers/tasks.py` | Ingestion workers, embedding pipeline             |
 | `backend/models.py`        | DB models (Professor, Paper, Author)              |
-| `backend/database.py`      | SQLite/SQLAlchemy setup                           |
+| `backend/database.py`      | SQLite / SQLAlchemy setup                         |
 | `backend/main.py`          | FastAPI routes + Excel export                     |
 | `frontend/index.html`      | Ingest + Search UI                                |
 | `assets/`                  | Screenshots & demo GIF                            |
@@ -127,15 +127,15 @@ Faculty Directory URL
 
 ## ⚙️ Tech Stack
 
-| Layer        | Technology                             |
-| ------------ | -------------------------------------- |
-| API          | FastAPI                                |
-| DB           | SQLite + SQLAlchemy                    |
-| NLP          | sentence-transformers/all-MiniLM-L6-v2 |
-| Scraping     | Requests + BeautifulSoup               |
-| JS Rendering | Playwright (Chromium)                  |
-| Export       | OpenPyXL                               |
-| Concurrency  | ThreadPool Workers                     |
+| Layer        | Technology                               |
+| ------------ | ---------------------------------------- |
+| API          | FastAPI                                  |
+| DB           | SQLite + SQLAlchemy                      |
+| NLP          | `sentence-transformers/all-MiniLM-L6-v2` |
+| Scraping     | Requests + BeautifulSoup                 |
+| JS Rendering | Playwright (Chromium)                    |
+| Export       | OpenPyXL                                 |
+| Concurrency  | ThreadPool Workers                       |
 
 ---
 
@@ -144,7 +144,7 @@ Faculty Directory URL
 ```bash
 pip install -r requirements.txt
 playwright install chromium
-uvicorn main:app --reload
+uvicorn main:app --reload --port 8001
 ```
 
 Open: [http://127.0.0.1:8001](http://127.0.0.1:8001)
@@ -156,8 +156,6 @@ Open: [http://127.0.0.1:8001](http://127.0.0.1:8001)
 ```
 GET /export/professors.xlsx
 ```
-
-Exports:
 
 | Column         | Description               |
 | -------------- | ------------------------- |
@@ -172,12 +170,12 @@ Exports:
 
 ## 🧪 Verification Across Universities
 
-| University      | Challenge                  | SRME Result           |
-| --------------- | -------------------------- | --------------------- |
-| ETH Zurich      | A-Z segmented directory    | 16 → 225 faculty      |
-| Oxford Physics  | Drupal AJAX + cookies + JS | 9 → 229 faculty       |
-| Cambridge DAMTP | Strict SSL chain           | Successful connection |
-| Toronto CS      | Standard directory         | Stable extraction     |
+| University      | Challenge                  | SRME Result       |
+| --------------- | -------------------------- | ----------------- |
+| ETH Zurich      | A-Z segmented directory    | 16 → 225 faculty  |
+| Oxford Physics  | Drupal AJAX + cookies + JS | 9 → 229 faculty   |
+| Cambridge DAMTP | Strict SSL chain           | Successful        |
+| Toronto CS      | Standard directory         | Stable extraction |
 
 ---
 
@@ -195,3 +193,5 @@ Exports:
 ## 📜 License
 
 MIT License
+
+This README now looks like a **research tool**, **engineering system**, and **production platform** — not a student project.
