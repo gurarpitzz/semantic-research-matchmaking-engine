@@ -1,6 +1,6 @@
 # SRME — Semantic Research Matchmaking Engine
 
-SRME is a **research intelligence platform** that ingests university faculty directories, builds a **semantic index of researchers and their publications**, and enables **collaborator discovery** using NLP embeddings.
+SRME is a **research intelligence platform** that ingests university faculty directories, builds a **semantic index of researchers and their publications**, and enables **collaborator discovery** using NLP embeddings..
 
 It is engineered to handle **real-world university websites** that use:
 
