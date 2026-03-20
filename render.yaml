@@ -1,6 +1,7 @@
 services:
   - type: web
     name: srme-api
+    plan: free
     env: docker
     dockerfilePath: ./backend/Dockerfile
     dockerCommand: bash -c "celery -A backend.workers.tasks worker --loglevel=info & uvicorn backend.api.main:app --host 0.0.0.0 --port $PORT"
