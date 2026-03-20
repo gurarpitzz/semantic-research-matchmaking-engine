@@ -10,8 +10,6 @@ celery
 redis
 requests
 beautifulsoup4
-sentence-transformers
-torch
 pandas
 streamlit
 litellm

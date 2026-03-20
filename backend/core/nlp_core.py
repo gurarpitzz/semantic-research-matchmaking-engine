@@ -1,20 +1,42 @@
-from sentence_transformers import SentenceTransformer
-import torch
+from openai import OpenAI
+import os
 
 class NLPEngine:
-    def __init__(self, model_name='all-MiniLM-L6-v2'):
-        print(f"Initializing NLPEngine with {model_name}...")
-        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.model = SentenceTransformer(model_name, device=self.device)
-        print("NLPEngine initialized.")
+    def __init__(self):
+        print("Initializing Cloud NLPEngine (OpenAI)...")
+        # Ensure OpenAI API key is available
+        api_key = os.getenv("OPENAI_API_KEY", "DUMMY_KEY")
+        if api_key == "DUMMY_KEY":
+            print("WARNING: OPENAI_API_KEY is not set in environment.")
+            
+        self.client = OpenAI(api_key=api_key)
+        self.model_name = "text-embedding-3-small"
+        self.dimensions = 768  # Crucial: Matches your init.sql pgvector(768) schema!
 
     def encode(self, text):
-        if not text:
+        if not text or not str(text).strip():
             return None
-        return self.model.encode(text).tolist()
+        response = self.client.embeddings.create(
+            input=[text],
+            model=self.model_name,
+            dimensions=self.dimensions
+        )
+        return response.data[0].embedding
 
     def batch_encode(self, texts):
-        return self.model.encode(texts).tolist()
+        if not texts:
+            return []
+            
+        valid_texts = [t for t in texts if t and str(t).strip()]
+        if not valid_texts:
+            return []
+            
+        response = self.client.embeddings.create(
+            input=valid_texts,
+            model=self.model_name,
+            dimensions=self.dimensions
+        )
+        return [item.embedding for item in response.data]
 
 # Global engine instance
 nlp_engine = NLPEngine()
