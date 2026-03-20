@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRME — Semantic Research Matchmaking Engine</title>
+    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>SRME</h1>
+            <p class="subtitle">Semantic Research Matchmaking Engine</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="search">🔍 Find Collaborators</button>
+            <button class="tab-btn" data-tab="ingest">📥 Ingest University</button>
+        </nav>
+
+        <main>
+            <!-- Search Section -->
+            <section id="search" class="section active">
+                <div class="card">
+                    <div class="form-group">
+                        <label for="profile-text">Describe your research interests / current project</label>
+                        <textarea id="profile-text" rows="6"
+                            placeholder="e.g., Quantum foundations, emergence of spacetime, AI for scientific discovery..."></textarea>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                        <div class="form-group">
+                            <label for="limit-range">Max Papers searched: <span id="limit-val">50</span></label>
+                            <input type="range" id="limit-range" min="10" max="200" value="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="score-threshold">Min Similarity Score: <span id="score-val">0.40</span></label>
+                            <input type="range" id="score-threshold" min="0" max="100" value="40">
+                        </div>
+                    </div>
+                    <button id="search-btn" class="primary">Match Research Engine</button>
+                </div>
+
+                <div id="search-loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Analyzing global research matrix...</p>
+                </div>
+
+                <div id="results-container" class="results-grid">
+                    <!-- Results will be injected here -->
+                </div>
+            </section>
+
+            <!-- Ingest Section -->
+            <section id="ingest" class="section">
+                <div class="card">
+                    <h3>Administrative Ingestion</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                        Add a university department to your semantic index. This triggers background scraping and
+                        embedding workers.
+                    </p>
+                    <div class="form-group">
+                        <label for="uni-name">University Name</label>
+                        <input type="text" id="uni-name" placeholder="e.g., MIT Physics">
+                    </div>
+                    <div class="form-group">
+                        <label for="dept-url">Faculty Directory URL</label>
+                        <input type="url" id="dept-url" placeholder="https://physics.mit.edu/faculty/">
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button id="ingest-btn" class="primary" style="flex: 2;">Trigger Semantic Discovery</button>
+                        <button onclick="exportProfessors()" class="secondary" style="flex: 1;">
+                            ⬇️ Export Professors (.xlsx)
+                        </button>
+                    </div>
+                    <div id="ingest-status" style="margin-top: 0.5rem; font-size: 0.9rem;"></div>
+
+                    <div id="progress-container" style="display: none; margin-top: 1.5rem;">
+                        <div
+                            style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem;">
+                            <span id="progress-status">Processing faculty...</span>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                        <div class="progress-track"
+                            style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div id="progress-bar"
+                                style="background: var(--primary); width: 0%; height: 100%; transition: width 0.3s ease;">
+                            </div>
+                        </div>
+                        <p id="progress-detail"
+                            style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-secondary);"></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer
+            style="text-align: center; margin-top: 4rem; padding-bottom: 2rem; color: var(--text-secondary); font-size: 0.8rem;">
+            SRME Platform • Ethical Research Intelligence • Production v1.0
+        </footer>
+    </div>
+
+    <script>
+        function exportProfessors() {
+            window.location.href = "/export/professors.xlsx";
+        }
+    </script>
+    <script src="app.js?v=1.1"></script>
+</body>
+
+</html>
