@@ -30,12 +30,13 @@ services:
           name: srme-redis
           property: connectionString
 
+  - type: redis
+    name: srme-redis
+    plan: free
+    ipAllowList: []
+
 databases:
   - name: srme-db
     databaseName: srme_db
     user: srme_user
-    plan: starter
-
-  - type: redis
-    name: srme-redis
     plan: free
