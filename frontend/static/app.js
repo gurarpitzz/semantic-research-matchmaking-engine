@@ -1,4 +1,4 @@
-const API_URL = ""; // Assuming relative path if served by FastAPI
+const API_URL = "https://srme-api.onrender.com"; // Points to live Render backend
 
 // Tab Switching Logic
 const tabBtns = document.querySelectorAll('.tab-btn');
